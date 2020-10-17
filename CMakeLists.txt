@@ -28,17 +28,47 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 if(ANDROID)
   add_library(Emilio-Sergio-to SHARED
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
+      main.cpp
+      chesspiece.h
+      chesspiece.cpp
+      chesscell.cpp
+      chesscell.h
+      bishop.cpp
+      bishop.h
+      king.cpp
+      king.h
+      horse.cpp
+      horse.h
+      pawn.cpp
+      pawn.h
+      queen.cpp
+      queen.h
+      tower.cpp
+      tower.h
+
+      resources.qrc
   )
 else()
   add_executable(Emilio-Sergio-to
     main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
+    chesspiece.h
+    chesspiece.cpp
+    chesscell.cpp
+    chesscell.h
+    bishop.cpp
+    bishop.h
+    king.cpp
+    king.h
+    horse.cpp
+    horse.h
+    pawn.cpp
+    pawn.h
+    queen.cpp
+    queen.h
+    tower.cpp
+    tower.h
+
+    resources.qrc
   )
 endif()
 
