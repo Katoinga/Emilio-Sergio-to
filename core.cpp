@@ -43,7 +43,7 @@ void Core::drawChessBoard()
     chess = new Board();
     drawDeadHolder(0,0,Qt::lightGray);
     drawDeadHolder(1100,0,Qt::lightGray);
-     chess->drawBoxes(width()/2-400,50);
+    chess->drawBoxes(width()/2-400,50);
 
 }
 
@@ -100,6 +100,7 @@ void Core::start()
     whitePiece->setZValue(1);
     whitePiece->setDefaultTextColor(Qt::white);
     whitePiece->setFont(QFont("",14));
+    whitePiece->setPlainText("WHITE PIECE");
     addToScene(whitePiece);
     QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
 
@@ -107,6 +108,7 @@ void Core::start()
     blackPiece->setZValue(1);
     blackPiece->setDefaultTextColor(Qt::black);
     blackPiece->setFont(QFont("",14));
+    blackPiece->setPlainText("BLACK PIECE");
     addToScene(blackPiece);
     addToScene(check);
     chess->addChessPiece();
@@ -127,28 +129,29 @@ void Core::displayMainMenu()
     QFont titleFont("arial" , 50);
     titleText->setFont( titleFont);
     int xPos = width()/2 - titleText->boundingRect().width()/2;
-    int yPos = 150;
+    int yPos = 160;
     titleText->setPos(xPos,yPos);
     addToScene(titleText);
     listG.append(titleText);
     //boton para juagr
     Button * playButton = new Button("Jugar");
     int pxPos = width()/2 - playButton->boundingRect().width()/2;
-    int pyPos = 300;
+    int pyPos = 350;
     playButton->setPos(pxPos,pyPos);
     connect(playButton,SIGNAL(clicked()) , this , SLOT(start()));
     addToScene(playButton);
     listG.append(playButton);
 
     //boton para cerrar
-    Button * quitButton = new Button("Cerrar");
+    Button * quitButton = new Button("Salir");
     int qxPos = width()/2 - quitButton->boundingRect().width()/2;
-    int qyPos = 375;
+    int qyPos = 425;
     quitButton->setPos(qxPos,qyPos);
     connect(quitButton, SIGNAL(clicked()),this,SLOT(close()));
     addToScene(quitButton);
     drawChessBoard();
     listG.append(quitButton);
+
 }
 
 void Core::gameOver()

@@ -1,7 +1,8 @@
 #include "bishop.h"
+
 #include <QDebug>
-
-
+#include "core.h"
+extern Core *core;
 Bishop::Bishop(QString team,QGraphicsItem *parent):ChessPiece(team,parent)
 {
     //se inicializa poniendo su imagen
@@ -11,9 +12,9 @@ Bishop::Bishop(QString team,QGraphicsItem *parent):ChessPiece(team,parent)
 void Bishop::setImage()
 {
     if(side == "WHITE")
-        setPixmap(QPixmap(":/img/bishop_w.png"));
+        setPixmap(QPixmap(":/img/img/bishop_w.png"));
     else
-        setPixmap(QPixmap(":/img/bishop_b.png"));
+        setPixmap(QPixmap(":/img/img/bishop_b.png"));
 }
 /*Se encarga de como se mueve la pieza*/
 void Bishop::move()

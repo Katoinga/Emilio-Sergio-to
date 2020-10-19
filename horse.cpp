@@ -1,5 +1,6 @@
 #include "horse.h"
-
+#include "core.h"
+extern Core *core;
 Horse::Horse(QString team,QGraphicsItem *parent):ChessPiece(team,parent)
 {
     //se inicializa poniendo su imagen
@@ -10,9 +11,9 @@ Horse::Horse(QString team,QGraphicsItem *parent):ChessPiece(team,parent)
 void Horse::setImage()
 {
     if(side == "WHITE")
-        setPixmap(QPixmap(":/img/horse_w.png"));
+        setPixmap(QPixmap(":/img/img/horse_w.png"));
     else
-        setPixmap(QPixmap(":/img/horse_b.png"));
+        setPixmap(QPixmap(":/img/img/horse_b.png"));
 }
 /*Se encarga de como se mueve la pieza*/
 

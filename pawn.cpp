@@ -2,6 +2,8 @@
 #include <QDebug>
 #include <typeinfo>
 #include "king.h"
+#include "core.h"
+extern Core *core;
 Pawn::Pawn(QString team,QGraphicsItem *parent):ChessPiece(team,parent)
 {
     //se inicializa poniendo su imagen
@@ -13,9 +15,9 @@ Pawn::Pawn(QString team,QGraphicsItem *parent):ChessPiece(team,parent)
 void Pawn::setImage()
 {
     if(side == "WHITE")
-        setPixmap(QPixmap(":/img/pawn_w.png"));
+        setPixmap(QPixmap(":/img/img/pawn_w.png"));
     else
-        setPixmap(QPixmap(":/img/pawn_b.png"));
+        setPixmap(QPixmap(":/img/img/pawn_b.png"));
 }
 
 /*Se encarga de como se mueve la pieza*/

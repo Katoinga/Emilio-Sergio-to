@@ -1,5 +1,6 @@
 #include "queen.h"
-
+#include "core.h"
+extern Core *core;
 Queen::Queen(QString team,QGraphicsItem *parent):ChessPiece(team,parent)
 {
     //se inicializa poniendo su imagen
@@ -10,9 +11,9 @@ Queen::Queen(QString team,QGraphicsItem *parent):ChessPiece(team,parent)
 void Queen::setImage()
 {
     if(side == "WHITE")
-        setPixmap(QPixmap(":/img/queen_w.png"));
+        setPixmap(QPixmap(":/img/img/queen_w.png"));
     else
-        setPixmap(QPixmap(":/img/queen_b.png"));
+        setPixmap(QPixmap(":/img/img/queen_b.png"));
 }
 
 /*Se encarga de como se mueve la pieza*/

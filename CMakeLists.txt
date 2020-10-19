@@ -79,6 +79,8 @@ else()
     core.cpp
     core.h
     resources.qrc
+
+
   )
 endif()
 

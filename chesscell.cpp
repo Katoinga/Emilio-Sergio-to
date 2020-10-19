@@ -80,12 +80,13 @@ void ChessCell::setColor(QColor color)
     brush.setColor(color);
     setBrush(color);
 }
-
+//se encarga de poner las piezas en un lugar deseado del pixman
 void ChessCell::placePiece(ChessPiece *piece)
 {
-
-
-
+    piece->setPos(x()+50- piece->pixmap().width()/2  ,y()+50-piece->pixmap().width()/2);
+    piece->setCurrentCell(this);
+    setHasChessPiece(true,piece);
+    currentPiece = piece;
 }
 
 //resetea el color al original
