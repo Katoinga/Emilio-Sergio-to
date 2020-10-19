@@ -2,7 +2,7 @@
 #include "core.h"
 #include <QDebug>
 #include "king.h"
-
+#include <QColor>
 extern Core *core;
 ChessPiece::ChessPiece(QString team, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
@@ -27,7 +27,7 @@ void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event)
     if(!core->pieceToMove){
 
         core->pieceToMove = this;
-        core->pieceToMove->getCurrentCell()->setColor(Qt::red);
+        core->pieceToMove->getCurrentCell()->setColor(QColor(42,157,143));
         core->pieceToMove->move();
     }
     //Consuming counterPart of the CHessCell

@@ -3,20 +3,21 @@
 #include <QPixmap>
 #include "king.h"
 #include <QDebug>
+#include <QColor>
 Core::Core(QWidget *parent ):QGraphicsView(parent)
 {
     //construyendo la escena
     gameScene = new QGraphicsScene();
-    gameScene->setSceneRect(0,0,1400,900);
+    gameScene->setSceneRect(0,0,1370,695);
 
     //costruyendo la vista
-    setFixedSize(1400,900);
+    setFixedSize(1370,695);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(gameScene);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::black);
+    brush.setColor(QColor(1,22,30));
     setBackgroundBrush(brush);
     pieceToMove = NULL;
 
@@ -43,7 +44,7 @@ void Core::drawChessBoard()
     chess = new Board();
     drawDeadHolder(0,0,Qt::lightGray);
     drawDeadHolder(1100,0,Qt::lightGray);
-    chess->drawBoxes(width()/2-400,50);
+    chess->drawBoxes(width()/2-320,50);
 
 }
 

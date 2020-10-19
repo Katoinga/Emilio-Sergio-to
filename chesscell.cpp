@@ -7,7 +7,7 @@ extern Core *core;
 ChessCell::ChessCell(QGraphicsItem *parent):QGraphicsRectItem(parent)
 {
     //cibujar la celda
-    setRect(0,0,100,100);
+    setRect(0,0,80,80);
     brush.setStyle(Qt::SolidPattern);
     setZValue(-1);
     setHasChessPiece(false);
@@ -83,7 +83,7 @@ void ChessCell::setColor(QColor color)
 //se encarga de poner las piezas en un lugar deseado del pixman
 void ChessCell::placePiece(ChessPiece *piece)
 {
-    piece->setPos(x()+50- piece->pixmap().width()/2  ,y()+50-piece->pixmap().width()/2);
+    piece->setPos(x()+40- piece->pixmap().width()/2  ,y()+40-piece->pixmap().width()/2);
     piece->setCurrentCell(this);
     setHasChessPiece(true,piece);
     currentPiece = piece;

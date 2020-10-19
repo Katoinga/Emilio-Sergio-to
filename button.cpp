@@ -1,9 +1,9 @@
 #include "button.h"
 #include <QGraphicsTextItem>
 #include <QBrush>
+#include <QColor>
 
-
-//constructor explicito que recibe el nombre del boton yun qgraphicsitem que puede ser null
+//constructor explicito que recibe el nombre del boton y un qgraphicsitem que puede ser null
 Button::Button(QString nombre, QGraphicsItem *parent)
     :QGraphicsRectItem(parent)
 {
@@ -11,7 +11,7 @@ Button::Button(QString nombre, QGraphicsItem *parent)
     setRect(0,0,200,50);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkRed);
+    brush.setColor(QColor(23,104,172));
     setBrush(brush);
 
     //insertar el texto del boton
@@ -40,7 +40,7 @@ void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *evento)
     if(evento){
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::red);
+    brush.setColor(QColor(37,65,178));
     setBrush(brush);
     }
 }
@@ -52,7 +52,7 @@ void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *evento) {
     if(evento){
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkRed);
+    brush.setColor(QColor(23,104,172));
     setBrush(brush);
     }
 }

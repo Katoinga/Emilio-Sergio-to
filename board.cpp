@@ -7,7 +7,9 @@
 #include "king.h"
 #include "horse.h"
 #include "bishop.h"
-extern Core *core;   //to implemeeent
+#include <QColor>
+
+extern Core *core;
 Board::Board()
 {
     setUpBlack();  //inicializar las fichas
@@ -17,7 +19,7 @@ Board::Board()
 //dibujando los cuadros
 void Board::drawBoxes(int x,int y)
 {
-    int SHIFT = 100;
+    int SHIFT = 80;
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++)
         {
@@ -27,9 +29,9 @@ void Board::drawBoxes(int x,int y)
             box->colLoc = j;
             box->setPos(x+SHIFT*j,y+SHIFT*i);
             if((i+j)%2==0)
-                box->setOriginalColor(Qt::lightGray);
+                box->setOriginalColor(QColor(255, 206, 158));
             else
-                box->setOriginalColor(Qt::darkGray);
+                box->setOriginalColor(QColor(209, 139, 71));
             core->addToScene(box);
 
 
@@ -71,9 +73,9 @@ void Board::setUpWhite()
         piece = new Pawn("WHITE");
         whitePieces.append(piece);
     }
-    piece = new Horse("WHITE");
-    whitePieces.append(piece);
     piece = new Tower("WHITE");
+    whitePieces.append(piece);
+    piece = new Horse("WHITE");
     whitePieces.append(piece);
     piece = new Bishop("WHITE");
     whitePieces.append(piece);
@@ -94,9 +96,9 @@ void Board::setUpWhite()
 void Board::setUpBlack()
 {
     ChessPiece *piece;
-    piece = new Horse("BLACK");
-    blackPieces.append(piece);
     piece = new Tower("BLACK");
+    blackPieces.append(piece);
+    piece = new Horse("BLACK");
     blackPieces.append(piece);
     piece = new Bishop("BLACK");
     blackPieces.append(piece);
