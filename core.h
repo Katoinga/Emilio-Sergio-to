@@ -11,7 +11,7 @@ public:
     //Constructor
     Core(QWidget *parent = 0);
 
-    void drawDeadHolder(int x, int y, QColor color);
+    void drawDeadHolder( int x, int y);
     void drawChessBoard();
     void displayDeadWhite();
     void displayDeadBlack();

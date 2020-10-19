@@ -20,7 +20,6 @@ void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event)
         core->pieceToMove = NULL;
        return;
     }
-    //if it is already consumed or not the respective color's turn
     if((!getMoved() )|| ( (core->getTurn() != this->getSide())&& (!core->pieceToMove)) )
         return;
     //selecting

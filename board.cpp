@@ -17,22 +17,22 @@ Board::Board()
 }
 
 //dibujando los cuadros
-void Board::drawBoxes(int x,int y)
+void Board::drawCell(int x,int y)
 {
     int SHIFT = 80;
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++)
         {
-            ChessCell *box = new ChessCell();
-            core->collection[i][j] = box;
-            box->rowLoc = i;
-            box->colLoc = j;
-            box->setPos(x+SHIFT*j,y+SHIFT*i);
+            ChessCell *cell = new ChessCell();
+            core->collection[i][j] = cell;
+            cell->rowLoc = i;
+            cell->colLoc = j;
+            cell->setPos(x+SHIFT*j,y+SHIFT*i);
             if((i+j)%2==0)
-                box->setOriginalColor(QColor(255, 206, 158));
+                cell->setOriginalColor(QColor(255, 206, 158));
             else
-                box->setOriginalColor(QColor(209, 139, 71));
-            core->addToScene(box);
+                cell->setOriginalColor(QColor(209, 139, 71));
+            core->addToScene(cell);
 
 
 
@@ -47,16 +47,16 @@ void Board::addChessPiece() {
         for(int j = 0; j < 8; j++)
         {
 
-            ChessCell *box =core->collection[i][j];
+            ChessCell *cell =core->collection[i][j];
             if(i < 2) {
                 static int k;
-                box->placePiece(blackPieces[k]);
+                cell->placePiece(blackPieces[k]);
                 core->alivePiece.append(blackPieces[k]);
                 core->addToScene(blackPieces[k++]);
             }
             if(i > 5) {
                 static int h;
-                box->placePiece(whitePieces[h]);
+                cell->placePiece(whitePieces[h]);
                 core->alivePiece.append(whitePieces[h]);
                 core->addToScene(whitePieces[h++]);
             }

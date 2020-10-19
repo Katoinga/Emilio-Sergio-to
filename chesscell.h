@@ -45,9 +45,9 @@ public:
     ChessPiece * currentPiece;
 
 private:
-    QBrush brush;
     QColor originalColor;
     bool hasChessPiece;
+    QBrush brush;
     QString chessPieceColor;
 
 

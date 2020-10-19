@@ -8,7 +8,7 @@ public:
     Board();
 
     //dibuja los cuadros
-    void drawBoxes(int x, int y);
+    void drawCell(int x, int y);
 
     //incluye las piezas blancas
     void setUpWhite();
