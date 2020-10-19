@@ -45,7 +45,12 @@ if(ANDROID)
       queen.h
       tower.cpp
       tower.h
-
+      button.cpp
+      button.h
+      board.cpp
+      board.h
+      core.cpp
+      core.h
       resources.qrc
   )
 else()
@@ -67,7 +72,12 @@ else()
     queen.h
     tower.cpp
     tower.h
-
+    button.cpp
+    button.h
+    board.cpp
+    board.h
+    core.cpp
+    core.h
     resources.qrc
   )
 endif()

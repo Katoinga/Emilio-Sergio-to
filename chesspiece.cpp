@@ -1,11 +1,9 @@
 #include "chesspiece.h"
-
-#include "chesspiece.h"
-#include "game.h"
+#include "core.h"
 #include <QDebug>
 #include "king.h"
 
-extern Game *game;
+Core *core;
 ChessPiece::ChessPiece(QString team, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
     side = team;
@@ -16,24 +14,24 @@ ChessPiece::ChessPiece(QString team, QGraphicsItem *parent):QGraphicsPixmapItem(
 void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     //Deselect
-    if(this == game->pieceToMove){
-        game->pieceToMove->getCurrentCell()->resetOriginalColor();
-        game->pieceToMove->decolor();
-        game->pieceToMove = NULL;
+    if(this == core->pieceToMove){
+        core->pieceToMove->getCurrentCell()->resetOriginalColor();
+        core->pieceToMove->recolor();
+        core->pieceToMove = NULL;
        return;
     }
     //if it is already consumed or not the respective color's turn
-    if((!getMoved() )|| ( (game->getTurn() != this->getSide())&& (!game->pieceToMove)) )
+    if((!getMoved() )|| ( (core->getTurn() != this->getSide())&& (!core->pieceToMove)) )
         return;
     //selecting
-    if(!game->pieceToMove){
+    if(!core->pieceToMove){
 
-        game->pieceToMove = this;
-        game->pieceToMove->getCurrentCell()->setColor(Qt::red);
-        game->pieceToMove->moves();
+        core->pieceToMove = this;
+        core->pieceToMove->getCurrentCell()->setColor(Qt::red);
+        core->pieceToMove->move();
     }
     //Consuming counterPart of the CHessCell
-    else if(this->getSide() != game->pieceToMove->getSide()){
+    else if(this->getSide() != core->pieceToMove->getSide()){
         this->getCurrentCell()->mousePressEvent(event);
     }
 
