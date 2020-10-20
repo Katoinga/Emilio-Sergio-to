@@ -12,7 +12,7 @@ public:
     Core(QWidget *parent = 0);
 
     void drawDeadHolder( int x, int y);
-    void drawChessBoard();
+    void displayboard();
     void displayDeadWhite();
     void displayDeadBlack();
     void placeInDeadPlace(ChessPiece *piece);

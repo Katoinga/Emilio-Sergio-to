@@ -8,10 +8,10 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 {
     //construyendo la escena
     gameScene = new QGraphicsScene();
-    gameScene->setSceneRect(0,0,1460,720);
+    gameScene->setSceneRect(0,0,1360,695);
 
     //costruyendo la vista
-    setFixedSize(1460,720);
+    setFixedSize(1360,695);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(gameScene);
@@ -39,7 +39,7 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 
 }
 
-void Core::drawChessBoard()
+void Core::displayboard()
 {
     chess = new Board();
     drawDeadHolder(0,0);
@@ -129,33 +129,43 @@ void Core::drawDeadHolder( int x, int y)
 void Core::displayMainMenu()
 {
 
-    //titulo c:
-    QGraphicsTextItem *Menu = new QGraphicsTextItem("Ajedrez");
+    //titulo
+    /*QGraphicsTextItem *titulo = new QGraphicsTextItem("Ajedreeeez");
     QFont titleFont("arial" , 50);
-    Menu->setFont( titleFont);
-    int xPos = width()/2 - Menu->boundingRect().width()/2;
+    titulo->setFont( titleFont);
+    int xPos = width()/2 - titulo->boundingRect().width()/2;
     int yPos = 160;
-    Menu->setPos(xPos,yPos);
-    addToScene(Menu);
-    listG.append(Menu);
-    //boton para juagr
-    Button * playButton = new Button("Jugar");
-    int pxPos = width()/2 - playButton->boundingRect().width()/2;
+    titulo->setPos(xPos,yPos);
+    addToScene(titulo);
+    listG.append(titulo);
+*/
+
+    QGraphicsPixmapItem *title = new QGraphicsPixmapItem();
+    title->setPixmap(QPixmap(":/img/img/titleChess.png"));
+    title->setPos(490,70);
+    title->setTransformationMode(Qt::SmoothTransformation);
+    addToScene(title);
+    listG.append(title);
+
+    //boton para jugar
+    Button * jugar = new Button("Jugar");
+    int pxPos = width()/2 - jugar->boundingRect().width()/2;
     int pyPos = 350;
-    playButton->setPos(pxPos,pyPos);
-    connect(playButton,SIGNAL(clicked()) , this , SLOT(start()));
-    addToScene(playButton);
-    listG.append(playButton);
+    jugar->setPos(pxPos,pyPos);
+    connect(jugar,SIGNAL(clicked()) , this , SLOT(start()));
+    addToScene(jugar);
+    listG.append(jugar);
 
     //boton para salir
-    Button * quitButton = new Button("Salir");
-    int qxPos = width()/2 - quitButton->boundingRect().width()/2;
-    int qyPos = 425;
-    quitButton->setPos(qxPos,qyPos);
-    connect(quitButton, SIGNAL(clicked()),this,SLOT(close()));
-    addToScene(quitButton);
-    drawChessBoard();
-    listG.append(quitButton);
+    Button * salir = new Button("Salir");
+    int qxPos = width()/2 - salir->boundingRect().width()/2;
+    int qyPos = 600;
+    salir->setPos(qxPos,qyPos);
+    connect(salir, SIGNAL(clicked()),this,SLOT(close()));
+    addToScene(salir);
+
+    displayboard();
+    listG.append(salir);
 
 }
 

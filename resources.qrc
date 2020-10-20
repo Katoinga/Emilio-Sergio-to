@@ -12,5 +12,6 @@
         <file>img/queen_w.png</file>
         <file>img/tower_b.png</file>
         <file>img/tower_w.png</file>
+        <file>img/titleChess.png</file>
     </qresource>
 </RCC>
