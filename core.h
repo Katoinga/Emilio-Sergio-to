@@ -11,15 +11,15 @@ public:
     //Constructor
     Core(QWidget *parent = 0);
 
-    void drawDeadHolder( int x, int y);
-    void displayboard();
-    void displayDeadWhite();
-    void displayDeadBlack();
+    void displayDeadsFrame( int x, int y);
+    void showBoard();
+    void showDeadWhites();
+    void showDeadBlack();
     void placeInDeadPlace(ChessPiece *piece);
 
     //metodos para manejar la escena
-    void addToScene(QGraphicsItem *item);      //agrega a la escena
-    void removeFromScene(QGraphicsItem *item); //elminina de la escena
+    void aggregateToScene(QGraphicsItem *item);      //agrega a la escena
+    void deleteToScene(QGraphicsItem *item); //elminina de la escena
 
     //pieza a mover
     ChessPiece *pieceToMove;
@@ -35,25 +35,27 @@ public:
     //coleccion de celdas
     ChessCell *collection[8][8];
     QGraphicsTextItem *check;
-    //verifica si una pieza esta viva
-    QList <ChessPiece *> alivePiece;
+    //verifica las piezas vivas
+    QList <ChessPiece *> piecesInGame;
+
     //dibuja el menu principal
     void displayMainMenu();
-
+    //to implement, cuando el juego acabe
     void gameOver();
+    //elimina todo
     void removeAll();
+
 public slots:
     void start();
 private:
-    QGraphicsScene *gameScene;
+    QGraphicsScene *chessScene;
     QList <ChessPiece *> whiteDead;
     QList <ChessPiece *> blackDead;
     QGraphicsRectItem * deadHolder;
     QString turn;
     Board *chess;
     QList <QGraphicsItem *> listG;
-    QGraphicsTextItem * turnDisplay;
-
+    QGraphicsTextItem * frameTurn;
 
 };
 

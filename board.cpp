@@ -12,27 +12,27 @@
 extern Core *core;
 Board::Board()
 {
-    setUpBlack();  //inicializar las fichas
-    setUpWhite();
+    initializeBlack();  //inicializar las fichas
+    initializeWhite();
 }
 
 //dibujando los cuadros
-void Board::drawCell(int x,int y)
+void Board::initializeBoard(int x,int y)
 {
-    int SHIFT = 80;
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++)
+    uint16_t sizeCell = 80;
+    for(uint16_t i = 0; i < 8; i++) {
+        for(uint16_t j = 0; j < 8; j++)
         {
             ChessCell *cell = new ChessCell();
             core->collection[i][j] = cell;
             cell->rowLoc = i;
             cell->colLoc = j;
-            cell->setPos(x+SHIFT*j,y+SHIFT*i);
+            cell->setPos(x+sizeCell*j,y+sizeCell*i);
             if((i+j)%2==0)
                 cell->setOriginalColor(QColor(255, 206, 158));
             else
                 cell->setOriginalColor(QColor(209, 139, 71));
-            core->addToScene(cell);
+            core->aggregateToScene(cell);
 
 
 
@@ -42,23 +42,23 @@ void Board::drawCell(int x,int y)
 }
 
 //agregando las piezas en las listas
-void Board::addChessPiece() {
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++)
+void Board::addPieces() {
+    for(uint16_t i = 0; i < 8; i++) {
+        for(uint16_t j = 0; j < 8; j++)
         {
 
             ChessCell *cell =core->collection[i][j];
             if(i < 2) {
-                static int k;
+                static uint16_t k;
                 cell->placePiece(blackPieces[k]);
-                core->alivePiece.append(blackPieces[k]);
-                core->addToScene(blackPieces[k++]);
+                core->piecesInGame.append(blackPieces[k]);
+                core->aggregateToScene(blackPieces[k++]);
             }
             if(i > 5) {
-                static int h;
+                static uint16_t h;
                 cell->placePiece(whitePieces[h]);
-                core->alivePiece.append(whitePieces[h]);
-                core->addToScene(whitePieces[h++]);
+                core->piecesInGame.append(whitePieces[h]);
+                core->aggregateToScene(whitePieces[h++]);
             }
 
         }
@@ -66,55 +66,55 @@ void Board::addChessPiece() {
 }
 
 //inicializar las fichas blancas
-void Board::setUpWhite()
+void Board::initializeWhite()
 {
-    ChessPiece *piece;
+    ChessPiece *pieceToAdd;
     for(int i = 0; i < 8; i++) {
-        piece = new Pawn("WHITE");
-        whitePieces.append(piece);
+        pieceToAdd = new Pawn("WHITE");
+        whitePieces.append(pieceToAdd);
     }
-    piece = new Tower("WHITE");
-    whitePieces.append(piece);
-    piece = new Horse("WHITE");
-    whitePieces.append(piece);
-    piece = new Bishop("WHITE");
-    whitePieces.append(piece);
-    piece = new Queen("WHITE");
-    whitePieces.append(piece);
-    piece = new King("WHITE");
-    whitePieces.append(piece);
-    piece = new Bishop("WHITE");
-    whitePieces.append(piece);
-    piece = new Horse("WHITE");
-    whitePieces.append(piece);
-    piece = new Tower("WHITE");
-    whitePieces.append(piece);
+    pieceToAdd = new Tower("WHITE");
+    whitePieces.append(pieceToAdd);
+    pieceToAdd = new Horse("WHITE");
+    whitePieces.append(pieceToAdd);
+    pieceToAdd = new Bishop("WHITE");
+    whitePieces.append(pieceToAdd);
+    pieceToAdd = new Queen("WHITE");
+    whitePieces.append(pieceToAdd);
+    pieceToAdd = new King("WHITE");
+    whitePieces.append(pieceToAdd);
+    pieceToAdd = new Bishop("WHITE");
+    whitePieces.append(pieceToAdd);
+    pieceToAdd = new Horse("WHITE");
+    whitePieces.append(pieceToAdd);
+    pieceToAdd = new Tower("WHITE");
+    whitePieces.append(pieceToAdd);
 
 }
 
 //inicializando las piezas negras
-void Board::setUpBlack()
+void Board::initializeBlack()
 {
-    ChessPiece *piece;
-    piece = new Tower("BLACK");
-    blackPieces.append(piece);
-    piece = new Horse("BLACK");
-    blackPieces.append(piece);
-    piece = new Bishop("BLACK");
-    blackPieces.append(piece);
-    piece = new Queen("BLACK");
-    blackPieces.append(piece);
-    piece = new King("BLACK");
-    blackPieces.append(piece);
-    piece = new Bishop("BLACK");
-    blackPieces.append(piece);
-    piece = new Horse("BLACK");
-    blackPieces.append(piece);
-    piece = new Tower("BLACK");
-    blackPieces.append(piece);
+    ChessPiece *pieceToAdd;
+    pieceToAdd = new Tower("BLACK");
+    blackPieces.append(pieceToAdd);
+    pieceToAdd = new Horse("BLACK");
+    blackPieces.append(pieceToAdd);
+    pieceToAdd = new Bishop("BLACK");
+    blackPieces.append(pieceToAdd);
+    pieceToAdd = new Queen("BLACK");
+    blackPieces.append(pieceToAdd);
+    pieceToAdd = new King("BLACK");
+    blackPieces.append(pieceToAdd);
+    pieceToAdd = new Bishop("BLACK");
+    blackPieces.append(pieceToAdd);
+    pieceToAdd = new Horse("BLACK");
+    blackPieces.append(pieceToAdd);
+    pieceToAdd = new Tower("BLACK");
+    blackPieces.append(pieceToAdd);
     for(int i = 0; i < 8; i++) {
-        piece = new Pawn("BLACK");
-        blackPieces.append(piece);
+        pieceToAdd = new Pawn("BLACK");
+        blackPieces.append(pieceToAdd);
     }
 }
 

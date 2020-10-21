@@ -8,16 +8,17 @@ public:
     Board();
 
     //dibuja los cuadros
-    void drawCell(int x, int y);
-
-    //incluye las piezas blancas
-    void setUpWhite();
-
-    //incluye las piezas negras
-    void setUpBlack();
+    void initializeBoard(int x, int y);
 
     //agrega las piezas al tablero
-    void addChessPiece();
+    void addPieces();
+
+    //incluye las piezas blancas
+    void initializeWhite();
+
+    //incluye las piezas negras
+    void initializeBlack();
+
     void reset();
 private:
     QList <ChessPiece *> whitePieces;
