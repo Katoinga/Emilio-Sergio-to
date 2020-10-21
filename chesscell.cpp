@@ -28,45 +28,7 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
             return;
         }
 
-        //si se  selecciona esta celda
-        if(core->pieceToMove){
-            if(this->getChessPieceColor() == core->pieceToMove->getSide())
-                return;
-            //eliminando la pieza movida
-            QList <ChessCell *> movLoc = core->pieceToMove->moveLocation();
-            //ver las zomas para moverse
-            int check = 0;
-            for(size_t i = 0, n = movLoc.size(); i < n;i++) {
-                if(movLoc[i] == this) {
-                    check++;
 
-                }
-            }
-            // if not prsent return
-            if(check == 0)
-                return;
-            //cambiar el color al normal
-             core->pieceToMove->recolor();
-             //hacer valido el primer movimiento solo para los peones
-             core->pieceToMove->firstMove = false;
-             //si es que se come una pieza rival
-            if(this->getHasChessPiece()){
-                this->currentPiece->setMoved(false);
-                this->currentPiece->setCurrentCell(NULL);
-                core->placeInDeadPlace(this->currentPiece);
-
-            }
-            //cambia el estado
-            core->pieceToMove->getCurrentCell()->setHasChessPiece(false);
-            core->pieceToMove->getCurrentCell()->currentPiece = NULL;
-            core->pieceToMove->getCurrentCell()->resetOriginalColor();
-            placePiece(core->pieceToMove);
-
-            core->pieceToMove = NULL;
-            //cambio de turno en el juegp
-            core->changeTurn();
-            checkForCheck();
-        }
         //Selecting couterpart of the chessPiece
         else if(this->getHasChessPiece())
         {
