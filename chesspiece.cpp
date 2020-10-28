@@ -1,9 +1,12 @@
 #include "chesspiece.h"
 #include "core.h"
 #include <QDebug>
+#include <memory>
 #include "king.h"
 #include <QColor>
-extern Core *core;
+
+extern std::unique_ptr<Core> core;
+
 ChessPiece::ChessPiece(QString team, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
     side = team;

@@ -1,9 +1,10 @@
 #include "chesscell.h"
 #include "core.h"
+#include <memory>
 #include <QDebug>
 #include "king.h"
 
-extern Core *core;
+extern std::unique_ptr<Core> core;
 ChessCell::ChessCell(QGraphicsItem *parent):QGraphicsRectItem(parent)
 {
     //cibujar la celda

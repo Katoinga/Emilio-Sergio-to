@@ -1,4 +1,5 @@
 #include "button.h"
+#include <memory>
 #include <QGraphicsTextItem>
 #include <QBrush>
 #include <QColor>
@@ -15,7 +16,7 @@ Button::Button(QString nombre, QGraphicsItem *parent)
     setBrush(brush);
 
     //insertar el texto del boton
-    texto = new QGraphicsTextItem(nombre,this);
+    texto = new QGraphicsTextItem(nombre, this);
     int xPos = rect().width()/2 - texto->boundingRect().width()/2;
     int yPos = rect().height()/2 - texto->boundingRect().height()/2;
     texto->setPos(xPos,yPos);
