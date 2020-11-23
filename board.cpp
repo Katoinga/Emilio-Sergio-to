@@ -9,7 +9,7 @@
 #include "bishop.h"
 #include <QColor>
 
-extern std::unique_ptr<Core> core;
+extern Core *core;
 Board::Board()
 {
     initializeBlack();  //inicializar las fichas

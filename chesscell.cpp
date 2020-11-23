@@ -4,7 +4,7 @@
 #include <QDebug>
 #include "king.h"
 
-extern std::unique_ptr<Core> core;
+extern Core *core;
 ChessCell::ChessCell(QGraphicsItem *parent):QGraphicsRectItem(parent)
 {
     //cibujar la celda
@@ -29,50 +29,50 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
             return;
         }
 
-        //si se  selecciona esta celda
         if(core->pieceToMove){
-            if(this->getChessPieceColor() == core->pieceToMove->getSide())
-                return;
-            //eliminando la pieza movida
-            QList <ChessCell *> movLoc = core->pieceToMove->moveLocation();
-            //ver las zomas para moverse
-            int check = 0;
-            for(size_t i = 0, n = movLoc.size(); i < n;i++) {
-                if(movLoc[i] == this) {
-                    check++;
+                    //if es del mismo team
+                    if(this->getChessPieceColor() == core->pieceToMove->getSide())
+                        return;
+                    //quitar la pieza comida
+                    QList <ChessCell *> movLoc = core->pieceToMove->moveLocation();
 
+                    int check = 0;
+                    for(size_t i = 0, n = movLoc.size(); i < n;i++) {
+                        if(movLoc[i] == this) {
+                            check++;
+
+                        }
+                    }
+                    // if no hay return
+                    if(check == 0)
+                        return;
+                    //cambiar el color a normal
+                     core->pieceToMove->recolor();
+                     //hacer que el primer movimiento solo sea de peones
+                     core->pieceToMove->firstMove = false;
+                     //para poder comer a una pieza
+                    if(this->getHasChessPiece()){
+                        this->currentPiece->setMoved(false);
+                        this->currentPiece->setCurrentCell(NULL);
+                        core->placeInDeadPlace(this->currentPiece);
+
+                    }
+                    //cambiando el nuevo estado
+                    core->pieceToMove->getCurrentCell()->setHasChessPiece(false);
+                    core->pieceToMove->getCurrentCell()->currentPiece = NULL;
+                    core->pieceToMove->getCurrentCell()->resetOriginalColor();
+                    placePiece(core->pieceToMove);
+
+                    core->pieceToMove = NULL;
+                    //cambiando de turno
+                    core->changeTurn();
+                    checkForCheck();
                 }
-            }
-            // if not prsent return
-            if(check == 0)
-                return;
-            //cambiar el color al normal
-             core->pieceToMove->recolor();
-             //hacer valido el primer movimiento solo para los peones
-             core->pieceToMove->firstMove = false;
-             //si es que se come una pieza rival
-            if(this->getHasChessPiece()){
-                this->currentPiece->setMoved(false);
-                this->currentPiece->setCurrentCell(NULL);
-                core->placeInDeadPlace(this->currentPiece);
 
-            }
-            //cambia el estado
-            core->pieceToMove->getCurrentCell()->setHasChessPiece(false);
-            core->pieceToMove->getCurrentCell()->currentPiece = NULL;
-            core->pieceToMove->getCurrentCell()->resetOriginalColor();
-            placePiece(core->pieceToMove);
-
-            core->pieceToMove = NULL;
-            //cambio de turno en el juegp
-            core->changeTurn();
-            checkForCheck();
-        }
-        //Selecting couterpart of the chessPiece
-        else if(this->getHasChessPiece())
-        {
-            this->currentPiece->mousePressEvent(event);
-        }
+                else if(this->getHasChessPiece())
+                {
+                    this->currentPiece->mousePressEvent(event);
+                }
 }
 
 //cambia el color por uno que se le indique

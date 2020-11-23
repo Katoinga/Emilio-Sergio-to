@@ -5,7 +5,7 @@
 #include "king.h"
 #include <QColor>
 
-extern std::unique_ptr<Core> core;
+extern Core *core;
 
 ChessPiece::ChessPiece(QString team, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
@@ -19,12 +19,10 @@ void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event)
     //Deselect
     if(this == core->pieceToMove){
         core->pieceToMove->getCurrentCell()->resetOriginalColor();
-        core->pieceToMove->recolor();
         core->pieceToMove = NULL;
        return;
     }
-    if((!getMoved() )|| ( (core->getTurn() != this->getSide())&& (!core->pieceToMove)) )
-        return;
+
     //selecting
     if(!core->pieceToMove){
 
@@ -60,29 +58,16 @@ void ChessPiece::setSide( QString value)
 {
     side = value;
 }
-/*comprueba si se movio la pieza*/
-bool ChessPiece::getMoved()
+void ChessPiece::recolor()
 {
-    return Moved;
+
 }
-/*comprueba si se movio la pieza*/
 void ChessPiece::setMoved(bool value)
 {
     Moved = value;
 
 }
-/*Retorna la ubcacion para moverlo */
 QList<ChessCell *> ChessPiece::moveLocation()
 {
     return location;
-}
-/**/
-void ChessPiece::recolor()
-{
-
-}
-/*Monta la celda donde se encuentra*/
-bool ChessPiece::CellSetup(ChessCell *Cell)
-{
-    return true;
 }

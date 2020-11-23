@@ -8,10 +8,10 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 {
     //construyendo la escena
     chessScene = new QGraphicsScene();
-    chessScene->setSceneRect(0,0,1360,695);
+    chessScene->setSceneRect(0,0,695,695);
 
     //costruyendo la vista
-    setFixedSize(1360,695);
+    setFixedSize(695,695);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(chessScene);
@@ -42,27 +42,12 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 void Core::showBoard()
 {
     chess = new Board();
-    displayDeadsFrame(0,0);
-    displayDeadsFrame(1111,0);
+
     chess->initializeBoard(width()/2-320,50);
 
 }
 
-void Core::showDeadWhites()
-{
 
-}
-
-void Core::showDeadBlack()
-{
-
-}
-
-void Core::placeInDeadPlace(ChessPiece *piece)
-{
-
-
-}
 
 void Core::aggregateToScene(QGraphicsItem *item)
 {
@@ -85,10 +70,7 @@ void Core::setTurn(QString value)
     turn = value;
 }
 
-void Core::changeTurn()
-{
 
-}
 
 void Core::start()
 {
@@ -96,33 +78,7 @@ void Core::start()
         deleteToScene(listG[i]);
 
     aggregateToScene(frameTurn);
-    QGraphicsTextItem* whiteArr = new QGraphicsTextItem();
-    whiteArr->setPos(70,10);
-    whiteArr->setZValue(1);
-    whiteArr->setDefaultTextColor(Qt::white);
-    whiteArr->setFont(QFont("",14));
-    whiteArr->setPlainText("Piezas Blancas");
-    aggregateToScene(whiteArr);
-    QGraphicsTextItem *blackArr = new QGraphicsTextItem();
-    blackArr->setDefaultTextColor(Qt::white);
-    blackArr->setFont(QFont("",14));
-    blackArr->setPlainText("Piezas negras");
-    blackArr->setPos(1170,10);
-    blackArr->setZValue(1);
-    aggregateToScene(blackArr);
-    aggregateToScene(check);
     chess->addPieces();
-}
-
-//barras para las jugadas y retener las piezas comidas
-void Core::displayDeadsFrame( int x, int y)
-{
-    deadHolder = new QGraphicsRectItem(x,y,300,900);
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor((55));
-    deadHolder->setBrush(brush);
-    aggregateToScene(deadHolder);
 }
 
 
@@ -132,7 +88,7 @@ void Core::displayMainMenu()
 
     QGraphicsPixmapItem *title = new QGraphicsPixmapItem();
     title->setPixmap(QPixmap(":/img/img/titleChess.png"));
-    title->setPos(490,70);
+    title->setPos(160,90);
     title->setTransformationMode(Qt::SmoothTransformation);
     aggregateToScene(title);
     listG.append(title);
@@ -158,13 +114,13 @@ void Core::displayMainMenu()
     listG.append(salir);
 
 }
-
-void Core::gameOver()
+void Core::placeInDeadPlace(ChessPiece *piece)
 {
 
+}
+void Core::changeTurn()
+{
 
 }
 
-void Core::removeAll(){
 
-}
