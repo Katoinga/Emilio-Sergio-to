@@ -24,7 +24,48 @@ void Pawn::setImage()
 
 void Pawn::move()
 {
+    location.clear();
+    int row = this->getCurrentCell()->rowLoc;
+    int col = this->getCurrentCell()->colLoc;
+    if(this->getSide() == "WHITE")  {
+        if(col > 0 && row > 0 && core->collection[row-1][col-1]->getChessPieceColor() == "BLACK") {
+            location.append(core->collection[row-1][col-1]);
+            CellSetup(location.last());
+        }
+        if(col < 7 && row > 0 && core->collection[row-1][col+1]->getChessPieceColor() == "BLACK") {
+            location.append(core->collection[row-1][col+1]);
+            CellSetup(location.last());
+        }
+        if(row>0 && (!core->collection[row-1][col]->getHasChessPiece())) {
+            location.append(core->collection[row-1][col]);
+            CellSetup(location.last());
+            if(firstMove && !core->collection[row-2][col]->getHasChessPiece()){
+                location.append(core->collection[row-2][col]);
+                CellSetup(location.last());
+            }
+        }
 
+    }
+    else{
+        if(col > 0 && row < 7 && core->collection[row+1][col-1]->getChessPieceColor() == "WHITE") {//left
+            location.append(core->collection[row+1][col-1]);
+            CellSetup(location.last());
+        }
+        if(col < 7 && row <  7 && core->collection[row+1][col+1]->getChessPieceColor() == "WHITE") {//right
+            location.append(core->collection[row+1][col+1]);
+            CellSetup(location.last());
+        }
+        if(row<7 && (!core->collection[row+1][col]->getHasChessPiece())) {
+            location.append(core->collection[row+1][col]);
+            CellSetup(location.last());
+            if(firstMove && !core->collection[row+2][col]->getHasChessPiece()){
+                location.append(core->collection[row+2][col]);
+                CellSetup(location.last());
+            }
+
+        }
+
+    }
 
 }
 

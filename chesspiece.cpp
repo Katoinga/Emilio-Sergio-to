@@ -19,18 +19,19 @@ void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event)
     //Deselect
     if(this == core->pieceToMove){
         core->pieceToMove->getCurrentCell()->resetOriginalColor();
+        core->pieceToMove->recolor();
         core->pieceToMove = NULL;
        return;
     }
-
-    //selecting
+    //para saber si ya paso su turno
+    if((!getMoved() )|| ( (core->getTurn() != this->getSide())&& (!core->pieceToMove)) )
+        return;
     if(!core->pieceToMove){
 
         core->pieceToMove = this;
         core->pieceToMove->getCurrentCell()->setColor(QColor(42,157,143));
         core->pieceToMove->move();
     }
-    //Consuming counterPart of the CHessCell
     else if(this->getSide() != core->pieceToMove->getSide()){
         this->getCurrentCell()->mousePressEvent(event);
     }
@@ -58,10 +59,11 @@ void ChessPiece::setSide( QString value)
 {
     side = value;
 }
-void ChessPiece::recolor()
+bool ChessPiece::getMoved()
 {
-
+    return Moved;
 }
+
 void ChessPiece::setMoved(bool value)
 {
     Moved = value;
@@ -71,3 +73,27 @@ QList<ChessCell *> ChessPiece::moveLocation()
 {
     return location;
 }
+void ChessPiece::recolor()
+{
+    for(size_t i = 0, n = location.size(); i < n;i++) {
+         location[i]->resetOriginalColor();
+    }
+}
+bool ChessPiece::CellSetup(ChessCell *Cell)
+{
+    if(Cell->getHasChessPiece()) {
+        King *q = dynamic_cast<King*>(location.last()->currentPiece);
+        if(q){
+            Cell->setColor(Qt::blue);
+        }
+        else
+            Cell->setColor(Qt::red);
+        return true;
+    }
+    else
+        location.last()->setColor(Qt::darkRed);
+    return false;
+}
+
+
+

@@ -120,5 +120,32 @@ void Board::initializeBlack()
 
 
 void Board::reset() {
+    int k = 0; int h = 0;
+    for(int i = 0; i < 8; i++) {
+        for(int j = 0; j < 8; j++)
+        {
 
+            ChessCell *box =core->collection[i][j];
+            box->setHasChessPiece(false);
+            box->setChessPieceColor("NONE");
+            box->currentPiece = NULL;
+            if(i < 2) {
+
+                box->placePiece(blackPieces[k]);
+                blackPieces[k]->setMoved(true);
+                blackPieces[k]->firstMove = true;
+                core->piecesInGame.append(blackPieces[k++]);
+
+            }
+            if(i > 5) {
+
+                box->placePiece(whitePieces[h]);
+                whitePieces[h]->setMoved(true);
+                whitePieces[h]->firstMove = true;
+                core->piecesInGame.append(whitePieces[h++]);
+
+            }
+
+        }
+    }
 }

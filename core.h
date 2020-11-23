@@ -37,6 +37,8 @@ public:
     QGraphicsTextItem *check;
     //verifica las piezas vivas
     QList <ChessPiece *> piecesInGame;
+    void displayDeadWhite();
+    void displayDeadBlack();
 
     //dibuja el menu principal
     void displayMainMenu();

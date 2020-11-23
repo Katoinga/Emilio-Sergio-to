@@ -29,6 +29,50 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
             return;
         }
 
+        //se seleeciona pieza
+        if(core->pieceToMove){
+            //si esta en el mismo equipo no se puede mover si ya ha movido
+            if(this->getChessPieceColor() == core->pieceToMove->getSide())
+                return;
+            //eliminando si esta muerta esta pieza
+            QList <ChessCell *> movLoc = core->pieceToMove->moveLocation();
+            //chekea que esta en una de las celdas donde si se puede mover
+            int check = 0;
+            for(size_t i = 0, n = movLoc.size(); i < n;i++) {
+                if(movLoc[i] == this) {
+                    check++;
+
+                }
+            }
+            // si no retorna
+            if(check == 0)
+                return;
+            //cambia el color a normal
+             core->pieceToMove->recolor();
+             //hace el primer movimiento falta para peones
+             core->pieceToMove->firstMove = false;
+             //realiza la accion de comer una fiiicha
+            if(this->getHasChessPiece()){
+                this->currentPiece->setMoved(false);
+                this->currentPiece->setCurrentCell(NULL);
+                core->placeInDeadPlace(this->currentPiece);
+
+            }
+            //resetando la region previa
+            core->pieceToMove->getCurrentCell()->setHasChessPiece(false);
+            core->pieceToMove->getCurrentCell()->currentPiece = NULL;
+            core->pieceToMove->getCurrentCell()->resetOriginalColor();
+            placePiece(core->pieceToMove);
+
+            core->pieceToMove = NULL;
+            //cambiando el turno
+            core->changeTurn();
+            checkForCheck();
+        }
+        else if(this->getHasChessPiece())
+        {
+            this->currentPiece->mousePressEvent(event);
+        }
         if(core->pieceToMove){
                     //if es del mismo team
                     if(this->getChessPieceColor() == core->pieceToMove->getSide())

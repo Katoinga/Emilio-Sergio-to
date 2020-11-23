@@ -46,7 +46,58 @@ void Core::showBoard()
     chess->initializeBoard(width()/2-320,50);
 
 }
+void Core::displayDeadWhite()
+{
+    int SHIFT = 50;
+    int j = 0;
+    int k = 0;
+    for(size_t i = 0,n = whiteDead.size(); i<n; i++) {
+            if(j == 4){
+                k++;
+                j = 0;
+            }
+            whiteDead[i]->setPos(40+SHIFT*j++,100+SHIFT*2*k);
+    }
+}
 
+void Core::displayDeadBlack()
+{
+    int SHIFT = 50;
+    int j = 0;
+    int k = 0;
+    for(size_t i = 0,n = blackDead.size(); i<n; i++) {
+        if(j == 4){
+            k++;
+            j = 0;
+        }
+        blackDead[i]->setPos(1140+SHIFT*j++,100+SHIFT*2*k);
+    }
+}
+
+void Core::placeInDeadPlace(ChessPiece *piece)
+{
+    if(piece->getSide() == "WHITE") {
+        whiteDead.append(piece);
+        King *g = dynamic_cast <King *>(piece);
+        if(g){
+
+            check->setPlainText("Black Won");
+            gameOver();
+        }
+        displayDeadWhite();
+    }
+    else{
+        blackDead.append(piece);
+        King *g = dynamic_cast <King *>(piece);
+        if(g){
+
+            check->setPlainText("White Won");
+            gameOver();
+        }
+        displayDeadBlack();
+    }
+    piecesInGame.removeAll(piece);
+}
 
 
 void Core::aggregateToScene(QGraphicsItem *item)
@@ -70,7 +121,14 @@ void Core::setTurn(QString value)
     turn = value;
 }
 
-
+void Core::changeTurn()
+{
+    if(getTurn() == "WHITE")
+        setTurn("BLACK");
+    else
+        setTurn("WHITE");
+    frameTurn->setPlainText("Turn : " + getTurn());
+}
 
 void Core::start()
 {
@@ -81,7 +139,14 @@ void Core::start()
     chess->addPieces();
 }
 
-
+void Core::displayDeadsFrame(int x, int y)
+{
+    deadHolder = new QGraphicsRectItem(x,y,300,900);
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    deadHolder->setBrush(brush);
+    aggregateToScene(deadHolder);
+}
 
 void Core::displayMainMenu()
 {
@@ -114,13 +179,20 @@ void Core::displayMainMenu()
     listG.append(salir);
 
 }
-void Core::placeInDeadPlace(ChessPiece *piece)
+void Core::gameOver()
 {
+    //removeAll();
+    setTurn("WHITE");
+    piecesInGame.clear();
+    chess->reset();
+
 
 }
-void Core::changeTurn()
-{
 
+void Core::removeAll(){
+    QList<QGraphicsItem*> itemsList = chessScene->items();
+    for(size_t i = 0, n = itemsList.size();i<n;i++) {
+        if(itemsList[i]!=check)
+          deleteToScene(itemsList[i]);
+    }
 }
-
-
