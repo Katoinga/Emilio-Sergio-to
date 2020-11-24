@@ -19,6 +19,66 @@ void Bishop::setImage()
 /*Se encarga de como se mueve la pieza*/
 void Bishop::move()
 {
+    location.clear();
+    int row = this->getCurrentCell()->rowLoc;
+    int col = this->getCurrentCell()->colLoc;
+    QString team = this->getSide();
+    //Diagonal izq arriba
+
+     for(int i = row-1,j = col-1; i >= 0 && j >=0; i--,j--) {
+       if(core->collection[i][j]->getChessPieceColor() == team ) {
+           break;
+
+       }
+       else
+       {
+           location.append(core->collection[i][j]);
+           if(CellSetup(location.last()) ){
+               break;
+           }
+       }
+    }
+     //Diagonal derecha arriba
+      for(int i = row-1,j = col+1; i >= 0 && j <= 7; i--,j++) {
+        if(core->collection[i][j]->getChessPieceColor() == team ) {
+            break;
+
+        }
+        else
+        {
+            location.append(core->collection[i][j]);
+            if(CellSetup(location.last())){
+                break;
+            }
+        }
+     }
+      //Diagonal derecha abajo
+       for(int i = row+1,j = col+1; i <= 7 && j <= 7; i++,j++) {
+         if(core->collection[i][j]->getChessPieceColor() == team ) {
+             break;
+         }
+         else
+         {location.append(core->collection[i][j]);
+             if(CellSetup(location.last())){
+                 break;
+             }
+         }
+      }
+       //Diagonal izq abajo
+
+        for(int i = row+1,j = col-1; i <= 7 && j >= 0; i++,j--) {
+          if(core->collection[i][j]->getChessPieceColor() == team ) {
+              break;
+          }
+          else
+          {
+              location.append(core->collection[i][j]);
+              if(CellSetup(location.last())){
+                  break;
+              }
+
+          }
+       }
 
 
 }

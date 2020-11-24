@@ -20,7 +20,67 @@ void Tower::setImage()
 
 void Tower::move()
 {
+    location.clear();
+    int row = this->getCurrentCell()->rowLoc;
+    int col = this->getCurrentCell()->colLoc;
+    QString team = this->getSide();
+    //AArriba
 
+     for(int i = row-1,j = col; i >= 0 ; i--) {
+       if(core->collection[i][j]->getChessPieceColor() == team ) {
+           break;
+       }
+       else
+       {
+           location.append(core->collection[i][j]);
+           if(CellSetup(location.last()))
+               break;
+        }
+    }
+
+     //Abajo
+
+      for(int i = row+1,j = col; i <= 7 ; i++) {
+        if(core->collection[i][j]->getChessPieceColor() == team ) {
+            break;
+        }
+        else
+        {
+            location.append(core->collection[i][j]);
+            if(CellSetup(location.last())){
+                break;
+            }
+        }
+     }
+
+      //Izq
+
+       for(int i = row,j = col-1; j >= 0 ; j--) {
+         if(core->collection[i][j]->getChessPieceColor() == team ) {
+             break;
+         }
+         else
+         {
+             location.append(core->collection[i][j]);
+             if(CellSetup(location.last()))
+                break;
+         }
+        }
+       //Der
+
+        for(int i = row,j = col+1; j <= 7 ; j++)
+        {
+              if(core->collection[i][j]->getChessPieceColor() == team ) {
+                  break;
+              }
+              else
+              {
+                  location.append(core->collection[i][j]);
+                  if(CellSetup(location.last()))
+                      break;
+               }
+
+       }
 }
 
 

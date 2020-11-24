@@ -19,5 +19,100 @@ void Horse::setImage()
 
 void Horse::move()
 {
+    int row = this->getCurrentCell()->rowLoc;
+    int col = this->getCurrentCell()->colLoc;
+    int i ,j;
+    QString team  = this->getSide();
+
+    //Hay 8 formas de mover al caballo
+    // tomando en cuenta WASD como instrucciones
+    //1st w w a
+    i = row - 2;
+    j = col - 1;
+    if(i >=0 && j>=0 && (core->collection[i][j]->getChessPieceColor() != team) ) {
+        location.append(core->collection[i][j]);
+        if(location.last()->getHasChessPiece())
+            location.last()->setColor(Qt::red);
+        else
+            location.last()->setColor(Qt::darkRed);
+    }
+
+    //2nd w w d
+    i = row - 2;
+    j = col + 1;
+    if(i >=0 && j<=7 && (core->collection[i][j]->getChessPieceColor() != team) ) {
+        location.append(core->collection[i][j]);
+        if(location.last()->getHasChessPiece())
+            location.last()->setColor(Qt::red);
+        else
+            location.last()->setColor(Qt::darkRed);
+    }
+
+    //3rd s s a
+    i = row + 2;
+    j = col - 1;
+    if(i <= 7 && j>=0 && (core->collection[i][j]->getChessPieceColor() != team) ) {
+        location.append(core->collection[i][j]);
+        if(location.last()->getHasChessPiece())
+            location.last()->setColor(Qt::red);
+        else
+            location.last()->setColor(Qt::darkRed);
+    }
+
+    //4th  s s d
+    i = row + 2;
+    j = col + 1;
+    if(i <=7 && j<=7 && (core->collection[i][j]->getChessPieceColor() != team) ) {
+        location.append(core->collection[i][j]);
+        if(location.last()->getHasChessPiece())
+            location.last()->setColor(Qt::red);
+        else
+            location.last()->setColor(Qt::darkRed);
+    }
+
+    //5th a a w
+    i = row - 1;
+    j = col - 2;
+    if(i >=0 && j>=0 && (core->collection[i][j]->getChessPieceColor() != team) ) {
+        location.append(core->collection[i][j]);
+        if(location.last()->getHasChessPiece())
+            location.last()->setColor(Qt::red);
+        else
+            location.last()->setColor(Qt::darkRed);
+    }
+
+    //6th a a s
+    i = row + 1;
+    j = col - 2;
+    if(i <=7 && j>=0 && (core->collection[i][j]->getChessPieceColor() != team) ) {
+        location.append(core->collection[i][j]);
+        if(location.last()->getHasChessPiece())
+            location.last()->setColor(Qt::red);
+        else
+            location.last()->setColor(Qt::darkRed);
+    }
+
+    //7th d d w
+    i = row - 1;
+    j = col + 2;
+    if(i >=0 && j<=7 && (core->collection[i][j]->getChessPieceColor() != team) ) {
+        location.append(core->collection[i][j]);
+        if(location.last()->getHasChessPiece())
+            location.last()->setColor(Qt::red);
+        else
+            location.last()->setColor(Qt::darkRed);
+    }
+
+    //8th d d s
+    i = row + 1;
+    j = col +  2;
+    if(i <=7 && j<=7 && (core->collection[i][j]->getChessPieceColor() != team) ) {
+        location.append(core->collection[i][j]);
+        if(location.last()->getHasChessPiece())
+            location.last()->setColor(Qt::red);
+        else
+            location.last()->setColor(Qt::darkRed);
+    }
+
 }
 
