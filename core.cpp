@@ -4,14 +4,16 @@
 #include "king.h"
 #include <QDebug>
 #include <QColor>
+#include <iostream>
+
 Core::Core(QWidget *parent ):QGraphicsView(parent)
 {
     //construyendo la escena
     chessScene = new QGraphicsScene();
-    chessScene->setSceneRect(0,0,695,695);
+    chessScene->setSceneRect(0,0,1350,695);
 
     //costruyendo la vista
-    setFixedSize(695,695);
+    setFixedSize(1350,695);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(chessScene);
@@ -39,6 +41,7 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 
 }
 
+//muestra e inicializa el board
 void Core::showBoard()
 {
     chess = new Board();
@@ -46,6 +49,8 @@ void Core::showBoard()
     chess->initializeBoard(width()/2-320,50);
 
 }
+
+//dibuja el cuadro que contendra a las piezas blancas muertas
 void Core::displayDeadWhite()
 {
     int SHIFT = 50;
@@ -60,6 +65,7 @@ void Core::displayDeadWhite()
     }
 }
 
+//dibuja el cuadro que contendra a las piezas negras muertas
 void Core::displayDeadBlack()
 {
     int SHIFT = 50;
@@ -74,13 +80,13 @@ void Core::displayDeadBlack()
     }
 }
 
+//verifica si se ha acabado el juego
 void Core::placeInDeadPlace(ChessPiece *piece)
 {
     if(piece->getSide() == "WHITE") {
         whiteDead.append(piece);
         King *g = dynamic_cast <King *>(piece);
         if(g){
-
             check->setPlainText("Black Won");
             gameOver();
         }
@@ -90,7 +96,6 @@ void Core::placeInDeadPlace(ChessPiece *piece)
         blackDead.append(piece);
         King *g = dynamic_cast <King *>(piece);
         if(g){
-
             check->setPlainText("White Won");
             gameOver();
         }
@@ -99,28 +104,32 @@ void Core::placeInDeadPlace(ChessPiece *piece)
     piecesInGame.removeAll(piece);
 }
 
-
+//agrega un item a la escena
 void Core::aggregateToScene(QGraphicsItem *item)
 {
     chessScene->addItem(item);
 }
 
+//elimina un dterminado item de la escena
 void Core::deleteToScene(QGraphicsItem *item)
 {
     chessScene->removeItem(item);
 
 }
 
+//devuelve el turno actual
 QString Core::getTurn()
 {
     return turn;
 }
 
+//cambiamos el turno
 void Core::setTurn(QString value)
 {
     turn = value;
 }
 
+//para cambiar de turno
 void Core::changeTurn()
 {
     if(getTurn() == "WHITE")
@@ -130,15 +139,33 @@ void Core::changeTurn()
     frameTurn->setPlainText("Turn : " + getTurn());
 }
 
+//para empezar el juego, agregamos lo necesario
 void Core::start()
 {
     for(size_t i =0, n = listG.size(); i < n; i++)
-        deleteToScene(listG[i]);
+            deleteToScene(listG[i]);
 
-    aggregateToScene(frameTurn);
-    chess->addPieces();
+        aggregateToScene(frameTurn);
+        QGraphicsTextItem* whitePiece = new QGraphicsTextItem();
+        whitePiece->setPos(70,10);
+        whitePiece->setZValue(1);
+        whitePiece->setDefaultTextColor(Qt::white);
+        whitePiece->setFont(QFont("",14));
+        whitePiece->setPlainText("WHITE PIECE'S DEAD");
+        aggregateToScene(whitePiece);
+        QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
+
+        blackPiece->setPos(1170,10);
+        blackPiece->setZValue(1);
+        blackPiece->setDefaultTextColor(Qt::black);
+        blackPiece->setFont(QFont("",14));
+        blackPiece->setPlainText("BLACK PIECE'S DEAD");
+        aggregateToScene(blackPiece);
+        aggregateToScene(check);
+        chess->addPieces();
 }
 
+//dibujamos el frame que contendra los muertos
 void Core::displayDeadsFrame(int x, int y)
 {
     deadHolder = new QGraphicsRectItem(x,y,300,900);
@@ -148,6 +175,7 @@ void Core::displayDeadsFrame(int x, int y)
     aggregateToScene(deadHolder);
 }
 
+//para dibujar el menu
 void Core::displayMainMenu()
 {
 
@@ -179,16 +207,19 @@ void Core::displayMainMenu()
     listG.append(salir);
 
 }
-void Core::gameOver()
-{
+
+//se ejecuta cuando alguno gane, reseteando el juego
+void Core::gameOver(){
     //removeAll();
     setTurn("WHITE");
     piecesInGame.clear();
+    //blackDead.clear();
+    //whiteDead.clear();
     chess->reset();
-
 
 }
 
+//eliminamos absolutamente todo lo que este en la escena
 void Core::removeAll(){
     QList<QGraphicsItem*> itemsList = chessScene->items();
     for(size_t i = 0, n = itemsList.size();i<n;i++) {

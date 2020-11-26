@@ -13,7 +13,7 @@ ChessPiece::ChessPiece(QString team, QGraphicsItem *parent):QGraphicsPixmapItem(
     Moved = true;
     firstMove = true;
 }
-
+//evento al presionar una chesspiece
 void ChessPiece::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     //Deselect
@@ -59,26 +59,35 @@ void ChessPiece::setSide( QString value)
 {
     side = value;
 }
+
+//retornamos el valor moved
 bool ChessPiece::getMoved()
 {
     return Moved;
 }
 
+//cambiamos el valor de moved
 void ChessPiece::setMoved(bool value)
 {
     Moved = value;
 
 }
+
+//retornamos la location en la que estamos
 QList<ChessCell *> ChessPiece::moveLocation()
 {
     return location;
 }
+
+//reseteamos el color
 void ChessPiece::recolor()
 {
     for(size_t i = 0, n = location.size(); i < n;i++) {
          location[i]->resetOriginalColor();
     }
 }
+
+
 bool ChessPiece::CellSetup(ChessCell *Cell)
 {
     if(Cell->getHasChessPiece()) {

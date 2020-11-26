@@ -56,7 +56,6 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 this->currentPiece->setMoved(false);
                 this->currentPiece->setCurrentCell(NULL);
                 core->placeInDeadPlace(this->currentPiece);
-
             }
             //resetando la region previa
             core->pieceToMove->getCurrentCell()->setHasChessPiece(false);
@@ -73,50 +72,6 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             this->currentPiece->mousePressEvent(event);
         }
-        if(core->pieceToMove){
-                    //if es del mismo team
-                    if(this->getChessPieceColor() == core->pieceToMove->getSide())
-                        return;
-                    //quitar la pieza comida
-                    QList <ChessCell *> movLoc = core->pieceToMove->moveLocation();
-
-                    int check = 0;
-                    for(size_t i = 0, n = movLoc.size(); i < n;i++) {
-                        if(movLoc[i] == this) {
-                            check++;
-
-                        }
-                    }
-                    // if no hay return
-                    if(check == 0)
-                        return;
-                    //cambiar el color a normal
-                     core->pieceToMove->recolor();
-                     //hacer que el primer movimiento solo sea de peones
-                     core->pieceToMove->firstMove = false;
-                     //para poder comer a una pieza
-                    if(this->getHasChessPiece()){
-                        this->currentPiece->setMoved(false);
-                        this->currentPiece->setCurrentCell(NULL);
-                        core->placeInDeadPlace(this->currentPiece);
-
-                    }
-                    //cambiando el nuevo estado
-                    core->pieceToMove->getCurrentCell()->setHasChessPiece(false);
-                    core->pieceToMove->getCurrentCell()->currentPiece = NULL;
-                    core->pieceToMove->getCurrentCell()->resetOriginalColor();
-                    placePiece(core->pieceToMove);
-
-                    core->pieceToMove = NULL;
-                    //cambiando de turno
-                    core->changeTurn();
-                    checkForCheck();
-                }
-
-                else if(this->getHasChessPiece())
-                {
-                    this->currentPiece->mousePressEvent(event);
-                }
 }
 
 //cambia el color por uno que se le indique
@@ -165,9 +120,44 @@ void ChessCell::setHasChessPiece(bool value, ChessPiece *piece)
         setChessPieceColor("NONE");
 }
 
+//se encarga de checkear continuamente si hay algun jake mate
 void ChessCell::checkForCheck()
 {
+    int c = 0;
+        QList <ChessPiece *> pList = core->piecesInGame;
+        for(size_t i = 0,n=pList.size(); i < n; i++ ) {
 
+            King * p = dynamic_cast<King *> (pList[i]);
+            if(p){
+                continue;
+            }
+            pList[i]->getMoved();
+            pList[i]->recolor();
+            QList <ChessCell *> bList = pList[i]->moveLocation();
+            for(size_t j = 0,n = bList.size(); j < n; j ++) {
+                King * p = dynamic_cast<King *> (bList[j]->currentPiece);
+                if(p) {
+                    if(p->getSide() == pList[i]->getSide())
+                        continue;
+                    bList[j]->setColor(Qt::blue);
+                    pList[i]->getCurrentCell()->setColor(Qt::darkRed);
+                    if(!core->check->isVisible())
+                        core->check->setVisible(true);
+                    else{
+                        bList[j]->resetOriginalColor();
+                        pList[i]->getCurrentCell()->resetOriginalColor();
+                        core->gameOver();
+                    }
+                    c++;
+
+                }
+            }
+        }
+        if(!c){
+            core->check->setVisible(false);
+            for(size_t i = 0,n=pList.size(); i < n; i++ )
+                pList[i]->getCurrentCell()->resetOriginalColor();
+        }
 }
 
 //onbtener el color de la pieza que se contiene
@@ -176,6 +166,7 @@ QString ChessCell::getChessPieceColor()
     return chessPieceColor;
 }
 
+//cambiaso el color de la pieza que se contiene
 void ChessCell::setChessPieceColor(QString value)
 {
     chessPieceColor = value;
