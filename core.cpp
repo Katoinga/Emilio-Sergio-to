@@ -10,10 +10,10 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 {
     //construyendo la escena
     chessScene = new QGraphicsScene();
-    chessScene->setSceneRect(0,0,1350,695);
+    chessScene->setSceneRect(0,0,1450,900);
 
     //costruyendo la vista
-    setFixedSize(1350,695);
+    setFixedSize(1450,900);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(chessScene);
@@ -29,11 +29,12 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
     frameTurn->setDefaultTextColor(Qt::white);
     frameTurn->setFont(QFont("",18));
     frameTurn->setPlainText("Turno : WHITE");
-    // muestra el check (jaque)
+
+    // muestra el check (jaque) como aviso
     check = new QGraphicsTextItem();
     check->setPos(width()/2-100,860);
     check->setZValue(4);
-    check->setDefaultTextColor(Qt::red);
+    check->setDefaultTextColor(Qt::white);
     check->setFont(QFont("",18));
     check->setPlainText("CHECK!");
     check->setVisible(false);
@@ -45,7 +46,7 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 void Core::showBoard()
 {
     chess = new Board();
-    chess->initializeBoard(width()/2-320,50);
+    chess->initializeBoard(width()/2-320,150);
 
 }
 
@@ -152,16 +153,50 @@ void Core::start()
         whitePiece->setFont(QFont("",14));
         whitePiece->setPlainText("WHITE PIECE'S DEAD");
         aggregateToScene(whitePiece);
+
         QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
 
         blackPiece->setPos(1170,10);
         blackPiece->setZValue(1);
-        blackPiece->setDefaultTextColor(Qt::black);
+        blackPiece->setDefaultTextColor(Qt::white);
         blackPiece->setFont(QFont("",14));
         blackPiece->setPlainText("BLACK PIECE'S DEAD");
         aggregateToScene(blackPiece);
         aggregateToScene(check);
         chess->addPieces();
+
+        QGraphicsTextItem* lettersIZQ = new QGraphicsTextItem();
+        lettersIZQ->setPos(370,150);
+        lettersIZQ->setZValue(1);
+        lettersIZQ->setDefaultTextColor(Qt::white);
+        lettersIZQ->setFont(QFont("",38));
+        lettersIZQ->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
+        aggregateToScene(lettersIZQ);
+
+        QGraphicsTextItem* lettersDER = new QGraphicsTextItem();
+        lettersDER->setPos(1050,150);
+        lettersDER->setZValue(1);
+        lettersDER->setDefaultTextColor(Qt::white);
+        lettersDER->setFont(QFont("",38));
+        lettersDER->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
+        aggregateToScene(lettersDER);
+
+        QGraphicsTextItem* lettersARR = new QGraphicsTextItem();
+        lettersARR->setPos(420,70);
+        lettersARR->setZValue(1);
+        lettersARR->setDefaultTextColor(Qt::white);
+        lettersARR->setFont(QFont("",38));
+        lettersARR->setPlainText("A     B     C     D    E     F    G     H");
+        aggregateToScene(lettersARR);
+
+        QGraphicsTextItem* lettersABA = new QGraphicsTextItem();
+        lettersABA->setPos(420,780);
+        lettersABA->setZValue(1);
+        lettersABA->setDefaultTextColor(Qt::white);
+        lettersABA->setFont(QFont("",38));
+        lettersABA->setPlainText("A     B     C     D    E     F    G     H");
+        aggregateToScene(lettersABA);
+
 }
 
 //dibujamos el frame que contendra los muertos
