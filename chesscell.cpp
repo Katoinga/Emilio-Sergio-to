@@ -131,7 +131,7 @@ void ChessCell::checkForCheck()
             if(p){
                 continue;
             }
-            pList[i]->getMoved();
+            pList[i]->move();
             pList[i]->recolor();
             QList <ChessCell *> bList = pList[i]->moveLocation();
             for(size_t j = 0,n = bList.size(); j < n; j ++) {

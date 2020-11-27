@@ -22,18 +22,18 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
     brush.setColor(QColor(0,0,55));
     setBackgroundBrush(brush);
     pieceToMove = NULL;
-
+    //se encarga de mostrar turno de quien es
     frameTurn = new QGraphicsTextItem();
     frameTurn->setPos(width()/2-100,10);
     frameTurn->setZValue(1);
     frameTurn->setDefaultTextColor(Qt::white);
     frameTurn->setFont(QFont("",18));
     frameTurn->setPlainText("Turno : WHITE");
-
+    // muestra el check (jaque)
     check = new QGraphicsTextItem();
     check->setPos(width()/2-100,860);
     check->setZValue(4);
-    check->setDefaultTextColor(Qt::white);
+    check->setDefaultTextColor(Qt::red);
     check->setFont(QFont("",18));
     check->setPlainText("CHECK!");
     check->setVisible(false);
@@ -45,7 +45,6 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 void Core::showBoard()
 {
     chess = new Board();
-
     chess->initializeBoard(width()/2-320,50);
 
 }
@@ -181,7 +180,7 @@ void Core::displayMainMenu()
 
     QGraphicsPixmapItem *title = new QGraphicsPixmapItem();
     title->setPixmap(QPixmap(":/img/img/titleChess.png"));
-    title->setPos(160,90);
+    title->setPos(460,90);
     title->setTransformationMode(Qt::SmoothTransformation);
     aggregateToScene(title);
     listG.append(title);
@@ -210,13 +209,12 @@ void Core::displayMainMenu()
 
 //se ejecuta cuando alguno gane, reseteando el juego
 void Core::gameOver(){
-    //removeAll();
+    removeAll();
     setTurn("WHITE");
     piecesInGame.clear();
-    //blackDead.clear();
-    //whiteDead.clear();
-    chess->reset();
 
+    chess->reset();
+//mostrar imagen quien gano
 }
 
 //eliminamos absolutamente todo lo que este en la escena
