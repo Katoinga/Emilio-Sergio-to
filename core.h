@@ -51,7 +51,7 @@ public slots:
     void start();
 private:
     QGraphicsScene *chessScene;
-
+    QTimer *timer;
     QList <ChessPiece *> whiteDead;
     QList <ChessPiece *> blackDead;
     QGraphicsRectItem * deadHolder;

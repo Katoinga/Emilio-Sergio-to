@@ -6,6 +6,8 @@
 #include <QColor>
 #include <iostream>
 #include <QMessageBox>
+
+
 Core::Core(QWidget *parent ):QGraphicsView(parent)
 {
     //construyendo la escena
@@ -155,57 +157,71 @@ void Core::start()
     for(size_t i =0, n = listG.size(); i < n; i++)
             deleteToScene(listG[i]);
 
-        aggregateToScene(frameTurn);
-        QGraphicsTextItem* whitePiece = new QGraphicsTextItem();
-        whitePiece->setPos(70,10);
-        whitePiece->setZValue(1);
-        whitePiece->setDefaultTextColor(Qt::white);
-        whitePiece->setFont(QFont("",14));
-        whitePiece->setPlainText("WHITE PIECE'S DEAD");
-        aggregateToScene(whitePiece);
+    aggregateToScene(frameTurn);
 
-        QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
+    //lugar para las piezas blancas muertas
+    QGraphicsTextItem* whitePiece = new QGraphicsTextItem();
+    whitePiece->setPos(70,10);
+    whitePiece->setZValue(1);
+    whitePiece->setDefaultTextColor(Qt::white);
+    whitePiece->setFont(QFont("",14));
+    whitePiece->setPlainText("WHITE PIECE'S DEAD");
+    aggregateToScene(whitePiece);
 
-        blackPiece->setPos(1100,10);
-        blackPiece->setZValue(1);
-        blackPiece->setDefaultTextColor(Qt::white);
-        blackPiece->setFont(QFont("",14));
-        blackPiece->setPlainText("BLACK PIECE'S DEAD");
-        aggregateToScene(blackPiece);
-        aggregateToScene(check);
-        chess->addPieces();
+    //lugar para las piezas blancas muertas
+    QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
+    blackPiece->setPos(1100,10);
+    blackPiece->setZValue(1);
+    blackPiece->setDefaultTextColor(Qt::white);
+    blackPiece->setFont(QFont("",14));
+    blackPiece->setPlainText("BLACK PIECE'S DEAD");
+    aggregateToScene(blackPiece);
+    aggregateToScene(check);
+    chess->addPieces();
 
-        QGraphicsTextItem* lettersIZQ = new QGraphicsTextItem();
-        lettersIZQ->setPos(350,100);
-        lettersIZQ->setZValue(1);
-        lettersIZQ->setDefaultTextColor(Qt::white);
-        lettersIZQ->setFont(QFont("",44));
-        lettersIZQ->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
-        aggregateToScene(lettersIZQ);
+    //lugar para las letras de la izquierda
+    QGraphicsTextItem* lettersIZQ = new QGraphicsTextItem();
+    lettersIZQ->setPos(350,100);
+    lettersIZQ->setZValue(1);
+    lettersIZQ->setDefaultTextColor(Qt::white);
+    lettersIZQ->setFont(QFont("",44));
+    lettersIZQ->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
+    aggregateToScene(lettersIZQ);
 
-        QGraphicsTextItem* lettersDER = new QGraphicsTextItem();
-        lettersDER->setPos(990,100);
-        lettersDER->setZValue(1);
-        lettersDER->setDefaultTextColor(Qt::white);
-        lettersDER->setFont(QFont("",44));
-        lettersDER->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
-        aggregateToScene(lettersDER);
+    //lugar para las letras de la derecha
+    QGraphicsTextItem* lettersDER = new QGraphicsTextItem();
+    lettersDER->setPos(990,100);
+    lettersDER->setZValue(1);
+    lettersDER->setDefaultTextColor(Qt::white);
+    lettersDER->setFont(QFont("",44));
+    lettersDER->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
+    aggregateToScene(lettersDER);
 
-        QGraphicsTextItem* lettersARR = new QGraphicsTextItem();
-        lettersARR->setPos(420,40);
-        lettersARR->setZValue(1);
-        lettersARR->setDefaultTextColor(Qt::white);
-        lettersARR->setFont(QFont("",30));
-        lettersARR->setPlainText("A    B    C    D    E    F    G    H");
-        aggregateToScene(lettersARR);
+    //lugar para las letras arriba
+    QGraphicsTextItem* lettersARR = new QGraphicsTextItem();
+    lettersARR->setPos(420,40);
+    lettersARR->setZValue(1);
+    lettersARR->setDefaultTextColor(Qt::white);
+    lettersARR->setFont(QFont("",30));
+    lettersARR->setPlainText("A    B    C    D    E    F    G    H");
+    aggregateToScene(lettersARR);
 
-        QGraphicsTextItem* lettersABA = new QGraphicsTextItem();
-        lettersABA->setPos(420,660);
-        lettersABA->setZValue(1);
-        lettersABA->setDefaultTextColor(Qt::white);
-        lettersABA->setFont(QFont("",30));
-        lettersABA->setPlainText("A    B    C    D    E    F    G    H");
-        aggregateToScene(lettersABA);
+    //lugar para las letras abajo
+    QGraphicsTextItem* lettersABA = new QGraphicsTextItem();
+    lettersABA->setPos(420,660);
+    lettersABA->setZValue(1);
+    lettersABA->setDefaultTextColor(Qt::white);
+    lettersABA->setFont(QFont("",30));
+    lettersABA->setPlainText("A    B    C    D    E    F    G    H");
+    aggregateToScene(lettersABA);
+
+    //boton para salir
+    Button * salir = new Button("Salir");
+    uint16_t sXPos = 70;
+    uint16_t sYPos = 600;
+    salir->setPos(sXPos,sYPos);
+    connect(salir, SIGNAL(clicked()),this,SLOT(close()));
+    aggregateToScene(salir);
 
 }
 
