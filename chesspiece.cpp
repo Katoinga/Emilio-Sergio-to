@@ -1,3 +1,4 @@
+
 #include "chesspiece.h"
 #include "core.h"
 #include <QDebug>

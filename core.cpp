@@ -10,10 +10,10 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 {
     //construyendo la escena
     chessScene = new QGraphicsScene();
-    chessScene->setSceneRect(0,0,1450,900);
+    chessScene->setSceneRect(0,0,1366,700);
 
     //costruyendo la vista
-    setFixedSize(1450,900);
+    setFixedSize(1366,700);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(chessScene);
@@ -32,11 +32,11 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 
     // muestra el check (jaque) como aviso
     check = new QGraphicsTextItem();
-    check->setPos(width()/2-100,860);
+    check->setPos(1050,500);
     check->setZValue(4);
-    check->setDefaultTextColor(Qt::white);
-    check->setFont(QFont("",18));
-    check->setPlainText("CHECK!");
+    check->setDefaultTextColor(Qt::red);
+    check->setFont(QFont("",20));
+    check->setPlainText("CHECK, THERE IS A \n POSSIBLE \n CHECKMATE!!");
     check->setVisible(false);
     setTurn("WHITE");
 
@@ -46,7 +46,7 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
 void Core::showBoard()
 {
     chess = new Board();
-    chess->initializeBoard(width()/2-320,150);
+    chess->initializeBoard(width()/2-280,90);
 
 }
 
@@ -156,7 +156,7 @@ void Core::start()
 
         QGraphicsTextItem *blackPiece = new QGraphicsTextItem();
 
-        blackPiece->setPos(1170,10);
+        blackPiece->setPos(1100,10);
         blackPiece->setZValue(1);
         blackPiece->setDefaultTextColor(Qt::white);
         blackPiece->setFont(QFont("",14));
@@ -166,35 +166,35 @@ void Core::start()
         chess->addPieces();
 
         QGraphicsTextItem* lettersIZQ = new QGraphicsTextItem();
-        lettersIZQ->setPos(370,150);
+        lettersIZQ->setPos(350,100);
         lettersIZQ->setZValue(1);
         lettersIZQ->setDefaultTextColor(Qt::white);
-        lettersIZQ->setFont(QFont("",38));
+        lettersIZQ->setFont(QFont("",44));
         lettersIZQ->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
         aggregateToScene(lettersIZQ);
 
         QGraphicsTextItem* lettersDER = new QGraphicsTextItem();
-        lettersDER->setPos(1050,150);
+        lettersDER->setPos(990,100);
         lettersDER->setZValue(1);
         lettersDER->setDefaultTextColor(Qt::white);
-        lettersDER->setFont(QFont("",38));
+        lettersDER->setFont(QFont("",44));
         lettersDER->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
         aggregateToScene(lettersDER);
 
         QGraphicsTextItem* lettersARR = new QGraphicsTextItem();
-        lettersARR->setPos(420,70);
+        lettersARR->setPos(420,40);
         lettersARR->setZValue(1);
         lettersARR->setDefaultTextColor(Qt::white);
-        lettersARR->setFont(QFont("",38));
-        lettersARR->setPlainText("A     B     C     D    E     F    G     H");
+        lettersARR->setFont(QFont("",30));
+        lettersARR->setPlainText("A    B    C    D    E    F    G    H");
         aggregateToScene(lettersARR);
 
         QGraphicsTextItem* lettersABA = new QGraphicsTextItem();
-        lettersABA->setPos(420,780);
+        lettersABA->setPos(420,660);
         lettersABA->setZValue(1);
         lettersABA->setDefaultTextColor(Qt::white);
-        lettersABA->setFont(QFont("",38));
-        lettersABA->setPlainText("A     B     C     D    E     F    G     H");
+        lettersABA->setFont(QFont("",30));
+        lettersABA->setPlainText("A    B    C    D    E    F    G    H");
         aggregateToScene(lettersABA);
 
 }
@@ -244,11 +244,15 @@ void Core::displayMainMenu()
 
 //se ejecuta cuando alguno gane, reseteando el juego
 void Core::gameOver(){
-    removeAll();
+    check->setPlainText("CHECK, THERE IS A \n POSSIBLE \n CHECKMATE!!");
+    check->setVisible(false);
+    //removeAll();
     setTurn("WHITE");
     piecesInGame.clear();
-
+    whiteDead.clear();
+    blackDead.clear();
     chess->reset();
+
 //mostrar imagen quien gano
 }
 

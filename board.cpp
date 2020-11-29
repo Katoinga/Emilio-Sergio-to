@@ -19,7 +19,7 @@ Board::Board()
 //dibujando los cuadros
 void Board::initializeBoard(int x,int y)
 {
-    uint16_t sizeCell = 80;
+    uint16_t sizeCell = 70;
     for(uint16_t i = 0; i < 8; i++) {
         for(uint16_t j = 0; j < 8; j++)
         {
@@ -117,6 +117,9 @@ void Board::initializeBlack()
 
 //resetea el board una vez haya ganado uno de los jugadores
 void Board::reset() {
+    initializeWhite();
+    initializeBlack();
+
     int k = 0; int h = 0;
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++)
@@ -140,6 +143,7 @@ void Board::reset() {
                     whitePieces[h]->setMoved(true);
                     whitePieces[h]->firstMove = true;
                     core->piecesInGame.append(whitePieces[h++]);
+
 
                 }
 

@@ -36,6 +36,7 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 return;
             //eliminando si esta muerta esta pieza
             QList <ChessCell *> movLoc = core->pieceToMove->moveLocation();
+
             //chekea que esta en una de las celdas donde si se puede mover
             int check = 0;
             for(size_t i = 0, n = movLoc.size(); i < n;i++) {
@@ -52,6 +53,7 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
              //hace el primer movimiento falta para peones
              core->pieceToMove->firstMove = false;
              //realiza la accion de comer una fiiicha
+
             if(this->getHasChessPiece()){
                 this->currentPiece->setMoved(false);
                 this->currentPiece->setCurrentCell(NULL);
@@ -124,13 +126,16 @@ void ChessCell::setHasChessPiece(bool value, ChessPiece *piece)
 void ChessCell::checkForCheck()
 {
     int c = 0;
+    int contrey=0;
         QList <ChessPiece *> pList = core->piecesInGame;
         for(size_t i = 0,n=pList.size(); i < n; i++ ) {
 
             King * p = dynamic_cast<King *> (pList[i]);
             if(p){
+                contrey++;
                 continue;
             }
+
             pList[i]->move();
             pList[i]->recolor();
             QList <ChessCell *> bList = pList[i]->moveLocation();
@@ -146,12 +151,33 @@ void ChessCell::checkForCheck()
                     else{
                         bList[j]->resetOriginalColor();
                         pList[i]->getCurrentCell()->resetOriginalColor();
+
+                        if(QString::compare(core->getTurn(),"WHITE")){
+                            core->check->setPlainText("Black Won");
+                            core->check->setVisible(true);
+                        }
+                        else if(QString::compare(core->getTurn(),"BLACK")){
+                            core->check->setPlainText("White Won");
+                            core->check->setVisible(true);
+                        }
                         core->gameOver();
+
                     }
                     c++;
 
                 }
             }
+        }
+        if(contrey==1){
+            if(QString::compare(core->getTurn(),"WHITE")){
+                core->check->setVisible(true);
+                core->check->setPlainText("Black Won");
+            }
+            else if(QString::compare(core->getTurn(),"BLACK")){
+                core->check->setVisible(true);
+                core->check->setPlainText("White Won");
+            }
+            core->gameOver();
         }
         if(!c){
             core->check->setVisible(false);
