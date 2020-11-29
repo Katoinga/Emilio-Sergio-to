@@ -5,13 +5,13 @@
 #include <QDebug>
 #include <QColor>
 #include <iostream>
-
+#include <QMessageBox>
 Core::Core(QWidget *parent ):QGraphicsView(parent)
 {
     //construyendo la escena
     chessScene = new QGraphicsScene();
     chessScene->setSceneRect(0,0,1366,700);
-
+    QMessageBox msbx;
     //costruyendo la vista
     setFixedSize(1366,700);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -87,7 +87,12 @@ void Core::placeInDeadPlace(ChessPiece *piece)
         whiteDead.append(piece);
         King *g = dynamic_cast <King *>(piece);
         if(g){
+
             check->setPlainText("Black Won");
+            QMessageBox Msgbox;
+            Msgbox.setWindowTitle("Chess Winneer!!");
+            Msgbox.setText("Black won!!");
+            Msgbox.exec();
             gameOver();
         }
         displayDeadWhite();
@@ -97,6 +102,11 @@ void Core::placeInDeadPlace(ChessPiece *piece)
         King *g = dynamic_cast <King *>(piece);
         if(g){
             check->setPlainText("White Won");
+            QMessageBox Msgbox;
+            Msgbox.setWindowTitle("Chess Winneer!!");
+            Msgbox.setText("White won!!");
+            Msgbox.exec();
+
             gameOver();
         }
         displayDeadBlack();

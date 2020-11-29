@@ -3,6 +3,7 @@
 #include <memory>
 #include <QDebug>
 #include "king.h"
+#include <QMessageBox>
 
 extern Core *core;
 ChessCell::ChessCell(QGraphicsItem *parent):QGraphicsRectItem(parent)
@@ -153,12 +154,21 @@ void ChessCell::checkForCheck()
                         pList[i]->getCurrentCell()->resetOriginalColor();
 
                         if(QString::compare(core->getTurn(),"WHITE")){
+
                             core->check->setPlainText("Black Won");
                             core->check->setVisible(true);
+                            QMessageBox Msgbox;
+                            Msgbox.setWindowTitle("Chess Winneer!!");
+                            Msgbox.setText("Black won!!");
+                            Msgbox.exec();
                         }
                         else if(QString::compare(core->getTurn(),"BLACK")){
                             core->check->setPlainText("White Won");
                             core->check->setVisible(true);
+                            QMessageBox Msgbox;
+                            Msgbox.setWindowTitle("Chess Winneer!!");
+                            Msgbox.setText("White won!!");
+                            Msgbox.exec();
                         }
                         core->gameOver();
 
@@ -172,10 +182,18 @@ void ChessCell::checkForCheck()
             if(QString::compare(core->getTurn(),"WHITE")){
                 core->check->setVisible(true);
                 core->check->setPlainText("Black Won");
+                QMessageBox Msgbox;
+                Msgbox.setWindowTitle("Chess Winneer!!");
+                Msgbox.setText("Black won!!");
+                Msgbox.exec();
             }
             else if(QString::compare(core->getTurn(),"BLACK")){
                 core->check->setVisible(true);
                 core->check->setPlainText("White Won");
+                QMessageBox Msgbox;
+                Msgbox.setWindowTitle("Chess Winneer!!");
+                Msgbox.setText("White won!!");
+                Msgbox.exec();
             }
             core->gameOver();
         }
