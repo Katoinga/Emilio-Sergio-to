@@ -49,7 +49,6 @@ void Core::showBoard()
 {
     chess = new Board();
     chess->initializeBoard(width()/2-280,90);
-
 }
 
 //dibuja el cuadro que contendra a las piezas blancas muertas
@@ -89,7 +88,7 @@ void Core::placeInDeadPlace(ChessPiece *piece)
         whiteDead.append(piece);
         King *g = dynamic_cast <King *>(piece);
         if(g){
-
+            //ganaron las piezas negras
             check->setPlainText("Black Won");
             QMessageBox Msgbox;
             Msgbox.setWindowTitle("Chess Winneer!!");
@@ -103,12 +102,12 @@ void Core::placeInDeadPlace(ChessPiece *piece)
         blackDead.append(piece);
         King *g = dynamic_cast <King *>(piece);
         if(g){
+            //ganaron las piezas blancas
             check->setPlainText("White Won");
             QMessageBox Msgbox;
             Msgbox.setWindowTitle("Chess Winneer!!");
             Msgbox.setText("White won!!");
             Msgbox.exec();
-
             gameOver();
         }
         displayDeadBlack();
@@ -150,6 +149,11 @@ void Core::changeTurn()
         setTurn("WHITE");
     frameTurn->setPlainText("Turn : " + getTurn());
 }
+
+void Core::callReset(){
+    gameOver();
+}
+
 
 //para empezar el juego, agregamos lo necesario
 void Core::start()
@@ -220,9 +224,16 @@ void Core::start()
     uint16_t sXPos = 70;
     uint16_t sYPos = 600;
     salir->setPos(sXPos,sYPos);
-    connect(salir, SIGNAL(clicked()),this,SLOT(close()));
+    connect(salir, SIGNAL(clicked()),this,SLOT(start()));
     aggregateToScene(salir);
 
+    //boton para resetear
+    Button * reset = new Button("Resetear");
+    sXPos = 70;
+    sYPos = 520;
+    reset->setPos(sXPos,sYPos);
+    connect(reset, SIGNAL(clicked()),this,SLOT(callReset()));
+    aggregateToScene(reset);
 }
 
 //dibujamos el frame que contendra los muertos
@@ -281,6 +292,7 @@ void Core::gameOver(){
 
 //mostrar imagen quien gano
 }
+
 
 //eliminamos absolutamente todo lo que este en la escena
 void Core::removeAll(){

@@ -4,6 +4,9 @@
 #include <QGraphicsScene>
 #include <board.h>
 #include "chesspiece.h"
+#include <QTime>
+#include <QTimer>
+
 class Core:public QGraphicsView
 {
     Q_OBJECT
@@ -42,14 +45,19 @@ public:
 
     //dibuja el menu principal
     void displayMainMenu();
+
+
     //to implement, cuando el juego acabe
     void gameOver();
     //elimina todo
     void removeAll();
 
+
 public slots:
     void start();
+    void callReset();
 private:
+
     QGraphicsScene *chessScene;
     QTimer *timer;
     QList <ChessPiece *> whiteDead;
