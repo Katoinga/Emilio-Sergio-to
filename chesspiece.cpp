@@ -46,12 +46,12 @@ void ChessPiece::setCurrentCell(ChessCell *Cell)
     currentCell = Cell;
 }
 /*Obtiene la celda actual en donde se encuentra el obj*/
-ChessCell *ChessPiece::getCurrentCell()
+ChessCell *ChessPiece::getCurrentCell() const
 {
     return currentCell;
 }
 /*obtiene el bando (equipo) donde se encuentra black or white*/
-QString ChessPiece::getSide()
+QString ChessPiece::getSide() const
 {
     return side;
 }
@@ -62,7 +62,7 @@ void ChessPiece::setSide( QString value)
 }
 
 //retornamos el valor moved
-bool ChessPiece::getMoved()
+bool ChessPiece::getMoved() const
 {
     return Moved;
 }

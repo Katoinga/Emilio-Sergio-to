@@ -12,11 +12,11 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void setCurrentCell(ChessCell *Cell);
-    ChessCell *getCurrentCell() ;
-    QString getSide() ;
+    ChessCell *getCurrentCell() const;
+    QString getSide() const ;
     void setSide( QString value);
     virtual void setImage() = 0;
-    bool getMoved() ;
+    bool getMoved() const ;
     void setMoved(bool value);
     QList <ChessCell *> moveLocation();
     virtual void move() = 0;

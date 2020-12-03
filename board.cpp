@@ -149,4 +149,5 @@ void Board::reset() {
 
             }
         }
+    core->setTurn("WHITE");
 }

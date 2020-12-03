@@ -28,7 +28,7 @@ public:
     ChessPiece *pieceToMove;
 
     //conocer el turno
-    QString getTurn() ;
+    QString getTurn() const;
     //setea de turno
     void setTurn( QString value);
     //cambia de turno

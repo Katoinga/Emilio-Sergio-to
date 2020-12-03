@@ -108,7 +108,7 @@ void ChessCell::setOriginalColor(QColor value)
 }
 
 //returna si es que tiene o no una pieza
-bool ChessCell::getHasChessPiece()
+bool ChessCell::getHasChessPiece() const
 {
     return hasChessPiece;
 }
@@ -205,7 +205,7 @@ void ChessCell::checkForCheck()
 }
 
 //onbtener el color de la pieza que se contiene
-QString ChessCell::getChessPieceColor()
+QString ChessCell::getChessPieceColor() const
 {
     return chessPieceColor;
 }

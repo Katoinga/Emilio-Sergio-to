@@ -129,7 +129,7 @@ void Core::deleteToScene(QGraphicsItem *item)
 }
 
 //devuelve el turno actual
-QString Core::getTurn()
+QString Core::getTurn() const
 {
     return turn;
 }
@@ -284,12 +284,12 @@ void Core::gameOver(){
     check->setPlainText("CHECK, THERE IS A \n POSSIBLE \n CHECKMATE!!");
     check->setVisible(false);
     //removeAll();
-    setTurn("WHITE");
+
     piecesInGame.clear();
     whiteDead.clear();
     blackDead.clear();
     chess->reset();
-
+    setTurn("WHITE");
 //mostrar imagen quien gano
 }
 
