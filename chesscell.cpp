@@ -60,7 +60,7 @@ void ChessCell::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 this->currentPiece->setCurrentCell(NULL);
                 core->placeInDeadPlace(this->currentPiece);
             }
-            //resetando la region previa
+            //se mueve
             core->pieceToMove->getCurrentCell()->setHasChessPiece(false);
             core->pieceToMove->getCurrentCell()->currentPiece = NULL;
             core->pieceToMove->getCurrentCell()->resetOriginalColor();

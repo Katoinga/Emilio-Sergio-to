@@ -15,7 +15,7 @@ Core::Core(QWidget *parent ):QGraphicsView(parent)
     chessScene->setSceneRect(0,0,1366,700);
     QMessageBox msbx;
     //costruyendo la vista
-    setFixedSize(1366,700);
+    setFixedSize(1366,800);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(chessScene);
@@ -185,28 +185,28 @@ void Core::start()
 
     //lugar para las letras de la izquierda
     QGraphicsTextItem* lettersIZQ = new QGraphicsTextItem();
-    lettersIZQ->setPos(350,100);
+    lettersIZQ->setPos(350,90);
     lettersIZQ->setZValue(1);
     lettersIZQ->setDefaultTextColor(Qt::white);
-    lettersIZQ->setFont(QFont("",44));
+    lettersIZQ->setFont(QFont("",34));
     lettersIZQ->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
     aggregateToScene(lettersIZQ);
 
     //lugar para las letras de la derecha
     QGraphicsTextItem* lettersDER = new QGraphicsTextItem();
-    lettersDER->setPos(990,100);
+    lettersDER->setPos(990,90);
     lettersDER->setZValue(1);
     lettersDER->setDefaultTextColor(Qt::white);
-    lettersDER->setFont(QFont("",44));
+    lettersDER->setFont(QFont("",34));
     lettersDER->setPlainText("8\n7\n6\n5\n4\n3\n2\n1");
     aggregateToScene(lettersDER);
 
     //lugar para las letras arriba
     QGraphicsTextItem* lettersARR = new QGraphicsTextItem();
-    lettersARR->setPos(420,40);
+    lettersARR->setPos(420,20);
     lettersARR->setZValue(1);
     lettersARR->setDefaultTextColor(Qt::white);
-    lettersARR->setFont(QFont("",30));
+    lettersARR->setFont(QFont("",36));
     lettersARR->setPlainText("A    B    C    D    E    F    G    H");
     aggregateToScene(lettersARR);
 
@@ -215,7 +215,7 @@ void Core::start()
     lettersABA->setPos(420,660);
     lettersABA->setZValue(1);
     lettersABA->setDefaultTextColor(Qt::white);
-    lettersABA->setFont(QFont("",30));
+    lettersABA->setFont(QFont("",36));
     lettersABA->setPlainText("A    B    C    D    E    F    G    H");
     aggregateToScene(lettersABA);
 

@@ -16,8 +16,6 @@ public:
 
     void displayDeadsFrame( int x, int y);
     void showBoard();
-    void showDeadWhites();
-    void showDeadBlack();
     void placeInDeadPlace(ChessPiece *piece);
 
     //metodos para manejar la escena
